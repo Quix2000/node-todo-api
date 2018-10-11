@@ -7,15 +7,18 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', { useNewUrlParser: true
     console.log('Connected');
     var db = client.db('TodoApp');
 
-    db.collection('Todos').insertMany([{
-        text: 'All Good',
-        completed: false 
+    db.collection('Users').insertMany([{
+        name: 'Nidhi',
+        age: 41,
+        location: 'Pearland'
     },{
-        text: 'Vacation Time',
-        completed: false 
+        name: 'Anand',
+        age: 43,
+        location: 'Pearland'
     },{
-        text: 'Binge Watching Netflix',
-        completed: false 
+        name: 'Arnav',
+        age: 7,
+        location: 'Pearland'
     }], (err, result) => {
         if (err){
             console.log('Unable to Insert in Users collection');
