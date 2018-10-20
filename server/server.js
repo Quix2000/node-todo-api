@@ -9,15 +9,14 @@ var app = express();
 
 var bp = bodyParser.json();
 
-console.log(bp.toString());
+//console.log(bp.toString());
 
 app.use(bp);
 
 app.post('/todos', (req, res) => {
     var todo = new Todo({
         text : req.body.text,
-        completed : false,
-        completedAt: req.body.text  
+        completedAt: req.body.completedAt
     });
 
     todo.save().then((doc) => {
@@ -31,3 +30,5 @@ app.post('/todos', (req, res) => {
 app.listen(3000, () => {
     console.log('Started on port 3000');
 });
+
+module.exports = {app};
