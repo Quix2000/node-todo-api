@@ -9,12 +9,9 @@ var {ObjectId} = require('mongodb');
 var app = express();
 
 var bp = bodyParser.json();
+app.use(bp);
 
 var port = process.env.PORT || 3000;
-
-//console.log(bp.toString());
-
-app.use(bp);
 
 app.post('/todos', (req, res) => {
     var todo = new Todo({
@@ -53,6 +50,25 @@ app.get('/todos/:id', (req, res) => {
         res.status(404).send(e)
         }); 
     }
+})
+
+app.delete('/todos/:id', (req, res) => {
+    var id = req.params.id;
+    if (!ObjectId.isValid(id))
+    {
+        return res.sendStatus(404);
+    } 
+    Todo.findByIdAndDelete(id).then((todo) => {
+        if (!todo)
+        {
+            return res.sendStatus(404);
+        }
+        res.send({todo});
+     }, (e) => {
+        res.status(404).send(e)
+     }).catch((e) => {
+        res.status(404).send(e)
+        });
 })
 
 app.listen(port, () => {
